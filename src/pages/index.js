@@ -1,128 +1,106 @@
 import * as React from "react"
 import { Link } from "gatsby"
-import { StaticImage } from "gatsby-plugin-image"
-
-import Layout from "../components/layout"
 import Seo from "../components/seo"
-import * as styles from "../components/index.module.css"
+import Layout from "../components/layout"
+import '../components/layout.css'
+import Wave from "../components/Wave"
+import Card from "../components/Card"
+import Section from "../components/Section"
+import staticdata from'../../staticdata.json'
+import styled from 'styled-components'
+import Cell from "../components/Cell"
+import figma from '../../public/static/images/logo-figma.png'
+import framer from '../../public/static/images/logo-framer.png'
+import react from '../../public/static/images/logo-react.png'
+import sketch from '../../public/static/images/logo-sketch.png'
+import studio from '../../public/static/images/logo-studio.png'
+import swift from '../../public/static/images/logo-swift.png'
+import wallpaper1 from '../../public/static/images/wallpaper.jpg'
+import wallpaper2 from '../../public/static/images/wallpaper2.jpg'
+import wallpaper3 from '../../public/static/images/wallpaper3.jpg'
+import wallpaper4 from '../../public/static/images/wallpaper4.jpg'
+import Footer from "../components/Footer"
 
-const links = [
-  {
-    text: "Tutorial",
-    url: "https://www.gatsbyjs.com/docs/tutorial",
-    description:
-      "A great place to get started if you're new to web development. Designed to guide you through setting up your first Gatsby site.",
-  },
-  {
-    text: "Examples",
-    url: "https://github.com/gatsbyjs/gatsby/tree/master/examples",
-    description:
-      "A collection of websites ranging from very basic to complex/complete that illustrate how to accomplish specific tasks within your Gatsby sites.",
-  },
-  {
-    text: "Plugin Library",
-    url: "https://www.gatsbyjs.com/plugins",
-    description:
-      "Learn how to add functionality and customize your Gatsby site or app with thousands of plugins built by our amazing developer community.",
-  },
-  {
-    text: "Build and Host",
-    url: "https://www.gatsbyjs.com/cloud",
-    description:
-      "Now you’re ready to show the world! Give your Gatsby site superpowers: Build and host on Gatsby Cloud. Get started for free!",
-  },
-]
-
-const samplePageLinks = [
-  {
-    text: "Page 2",
-    url: "page-2",
-    badge: false,
-    description:
-      "A simple example of linking to another page within a Gatsby site",
-  },
-  { text: "TypeScript", url: "using-typescript" },
-  { text: "Server Side Rendering", url: "using-ssr" },
-  { text: "Deferred Static Generation", url: "using-dsg" },
-]
-
-const moreLinks = [
-  { text: "Join us on Discord", url: "https://gatsby.dev/discord" },
-  {
-    text: "Documentation",
-    url: "https://gatsbyjs.com/docs/",
-  },
-  {
-    text: "Starters",
-    url: "https://gatsbyjs.com/starters/",
-  },
-  {
-    text: "Showcase",
-    url: "https://gatsbyjs.com/showcase/",
-  },
-  {
-    text: "Contributing",
-    url: "https://www.gatsbyjs.com/contributing/",
-  },
-  { text: "Issues", url: "https://github.com/gatsbyjs/gatsby/issues" },
-]
-
-const utmParameters = `?utm_source=starter&utm_medium=start-page&utm_campaign=default-starter`
-
+const SectionCaption = styled.p`
+  font-weight: 600;
+  font-size: 18px;
+  text-transform: uppercase;
+  color: #94A4BA;
+  text-align: center;
+`
+const SectionCellGroup = styled.div`
+  max-width: 800px;
+  margin: 0 auto 100px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 20px;
+  padding: 0 20px;
+  @media (max-width: 800px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+`
 const IndexPage = () => (
   <Layout>
-    <div className={styles.textCenter}>
-      <StaticImage
-        src="../images/example.png"
-        loading="eager"
-        width={64}
-        quality={95}
-        formats={["auto", "webp", "avif"]}
-        alt=""
-        style={{ marginBottom: `var(--space-3)` }}
-      />
-      <h1>
-        Welcome to <b>Gatsby!</b>
-      </h1>
-      <p className={styles.intro}>
-        <b>Example pages:</b>{" "}
-        {samplePageLinks.map((link, i) => (
-          <React.Fragment key={link.url}>
-            <Link to={link.url}>{link.text}</Link>
-            {i !== samplePageLinks.length - 1 && <> · </>}
-          </React.Fragment>
+      <div className="Hero">
+          <div className="HeroGroup">
+            <h1>
+              Learn to<br /> design and code React Apps
+            </h1>
+            <p>
+              Complete cources about the best tools and design systems. Prototype and build apps with React and Swift.
+            </p>
+            <Link to="/page-2">Watch the video</Link>
+            <div className="Logos">
+              <img src={figma} width="50" />
+              <img src={framer} width="50" />
+              <img src={studio} width="50" />
+              <img src={sketch} width="50" />
+              <img src={react}width="50" />
+              <img src={swift} width="50" />
+            </div>
+            <Wave/>
+          </div>
+          <div className="Cards">
+            <h2>11 courses, more coming</h2>
+            <div className="CardGroup">
+              <Card 
+                title="Design System"
+                text="10 sections"
+                image={wallpaper1} />
+              <Card 
+                title="React for Designers"
+                text="12 sections"
+                image={wallpaper2} />
+              <Card 
+                title="Sound Design"
+                text="5 sections"
+                image={wallpaper3} />
+              <Card 
+                title="ARKit 2"
+                text="10 sections"
+                image={wallpaper4} />
+          </div>
+        </div>
+        <Section
+          image={wallpaper2}
+          logo={react}
+          title="React for Designers"
+          text="Learn how to build a modern site using React and the most efficient libraries to get your site/product online. Get familiar with components, Grid CSS, animations, interactions, dynamic data with Contentful and deploying your site with Netlify."
+        />
+        <SectionCaption>12 sections - 6 hours</SectionCaption>
+        <SectionCellGroup>
+        {staticdata.cells.map(cell =>(
+          <Cell
+            title={cell.title}
+            image={cell.image}
+          />
         ))}
-        <br />
-        Edit <code>src/pages/index.js</code> to update this page.
-      </p>
-    </div>
-    <ul className={styles.list}>
-      {links.map(link => (
-        <li key={link.url} className={styles.listItem}>
-          <a
-            className={styles.listItemLink}
-            href={`${link.url}${utmParameters}`}
-          >
-            {link.text} ↗
-          </a>
-          <p className={styles.listItemDescription}>{link.description}</p>
-        </li>
-      ))}
-    </ul>
-    {moreLinks.map((link, i) => (
-      <React.Fragment key={link.url}>
-        <a href={`${link.url}${utmParameters}`}>{link.text}</a>
-        {i !== moreLinks.length - 1 && <> · </>}
-      </React.Fragment>
-    ))}
-  </Layout>
+        </SectionCellGroup>
+        <Footer></Footer>
+        </div>
+    </Layout>
 )
 
-/**
- * Head export to define metadata for the page
- *
- * See: https://www.gatsbyjs.com/docs/reference/built-in-components/gatsby-head/
- */
 export const Head = () => <Seo title="Home" />
 
 export default IndexPage
